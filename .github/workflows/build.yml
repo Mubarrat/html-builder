@@ -7,7 +7,8 @@ on:
       - 'v*'
 
 jobs:
-  build:
+  build-project:
+    name: Build Project
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -26,9 +27,10 @@ jobs:
           name: build-artifacts
           path: ./build
 
-  release:
+  release-project:
     runs-on: windows-latest
-    needs: build
+    name: Release Project
+    needs: build-project
     steps:
       - name: Checkout
         id: checkout
@@ -38,12 +40,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-artifacts
-          path: ./build
-      - name: Archive Library
-        id: archive_library
-        uses: Mubarrat/html-builder@main
+      - name: Archive Release
+        id: archive_release
+        uses: thedoctor0/zip-release@master
         with:
-          filename: library.zip
+          filename: release.zip
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
@@ -61,7 +62,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./library.zip
-          asset_name: library-v${{ github.run_number }}.zip
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release.zip
+          asset_name: release-v${{ github.run_number }}.zip
           asset_content_type: application/zip
