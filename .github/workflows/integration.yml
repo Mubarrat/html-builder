@@ -9,7 +9,7 @@ on:
 jobs:
   build-project:
     name: Build Project
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         id: checkout
@@ -28,7 +28,7 @@ jobs:
           path: ./build
 
   release-project:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     name: Release Project
     needs: build-project
     steps:
