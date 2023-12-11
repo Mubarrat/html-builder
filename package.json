@@ -7,7 +7,7 @@
     "_build": "npm run build:js && npm run build:min && npm run add-comments && npm run add-comments-min",
     "_build:js": "tsc",
     "_build:min": "terser ./build/html.js -o ./build/html.min.js",
-    "build": "webpack && replace-in-file \"var __webpack_exports__ = {};\" \"\" ./build/html.js && terser ./build/html.js -o ./build/html.min.js -c --comments=false"
+    "build": "webpack && replace-in-file \"var __webpack_exports__ = {};\" \"\" ./build/html.js && terser ./build/html.js -o ./build/html.min.js -c --comments=true"
   },
   "repository": {
     "type": "git",

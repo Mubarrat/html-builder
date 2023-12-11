@@ -31,12 +31,13 @@ module.exports = {
   },
   plugins: [
     new webpack.BannerPlugin({
-      banner: `/**
- * @package Html-Builder
- * @version 1.0.0
- * @license MIT
- */`,
-      raw: true
+      banner: `Html-Builder JavaScript Library v1.0.0
+https://github.com/Mubarrat/html-builder/
+
+Copyright OpenJS Foundation and other contributors
+Released under the MIT license
+https://github.com/Mubarrat/html-builder/blob/main/LICENSE`,
+      raw: false
     })
   ]
 };
