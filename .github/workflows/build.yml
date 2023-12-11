@@ -6,15 +6,15 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
-        run: sudo npm install
+        run: npm install
       - name: Build
-        run: sudo npm run build
+        run: npm run build
       - name: Exclude built files from repository
-        run: sudo git update-index --assume-unchanged html.js html.min.js
+        run: git update-index --assume-unchanged html.js html.min.js
       - name: Create release artifact
         uses: actions/upload-artifact@v3
         with:
@@ -24,7 +24,7 @@ jobs:
             html.min.js
 
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     steps:
       - uses: actions/download-artifact@v3
