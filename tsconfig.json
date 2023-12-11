@@ -6,6 +6,6 @@
     "sourceRoot": "./"
   },
   "files": [
-    "html.ts"
+    "./src/html.ts"
   ]
 }

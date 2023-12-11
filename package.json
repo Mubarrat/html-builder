@@ -2,7 +2,7 @@
   "name": "html-builder",
   "version": "1.0.0",
   "description": "This is a library that helps you to build HTML in your JavaScript or TypeScript files.",
-  "main": "html.ts",
+  "main": "./src/html.ts",
   "scripts": {
     "build": "npm-run-all build:js build:min",
     "build:js": "tsc",
