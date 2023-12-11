@@ -29,6 +29,10 @@ jobs:
 
   release-project:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     name: Release Project
     needs: build-project
     steps:
