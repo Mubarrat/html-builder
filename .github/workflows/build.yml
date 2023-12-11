@@ -10,11 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm install
+        run: sudo npm install
       - name: Build
-        run: npm run build
+        run: sudo npm run build
       - name: Exclude built files from repository
-        run: git update-index --assume-unchanged html.js html.min.js
+        run: sudo git update-index --assume-unchanged html.js html.min.js
       - name: Create release artifact
         uses: actions/upload-artifact@v3
         with:
