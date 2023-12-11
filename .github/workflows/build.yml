@@ -20,7 +20,7 @@ jobs:
           path: ./build
 
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     steps:
       - name: Checkout code
