@@ -1,0 +1,19 @@
+{
+  "name": "html-builder",
+  "version": "1.0.0",
+  "description": "This is a library that helps you to build HTML in your JavaScript or TypeScript files.",
+  "main": "html.ts",
+  "scripts": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mubarrat/html-builder.git"
+  },
+  "author": "Mubarrat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mubarrat/html-builder/issues"
+  },
+  "homepage": "https://github.com/Mubarrat/html-builder#readme"
+}
