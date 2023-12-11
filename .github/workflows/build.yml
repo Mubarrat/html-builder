@@ -2,44 +2,42 @@ name: Build and Release
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
+      - uses: actions/checkout@v3
       - name: Install dependencies
         run: npm install
-
-      - name: Build TypeScript
+      - name: Build
         run: npm run build
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Exclude built files from repository
+        run: git update-index --assume-unchanged html.js html.min.js
+      - name: Create release artifact
+        uses: actions/upload-artifact@v3
         with:
-          tag_name: v1.0.0  # Set your desired tag name
-          release_name: Release v1.0.0  # Set your desired release name
-          body: |
-            Changes in this release:
-            - Added TypeScript to JavaScript compilation
+          name: build-artifacts
+          paths: |
+            html.js
+            html.min.js
 
-      - name: Upload files
-        uses: actions/upload-artifact@v2
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v3
         with:
-          name: release-assets
-          path: |
+          name: build-artifacts
+      - name: Create release
+        uses: actions/create-release@v3
+        with:
+          tag_name: ${{ github.sha }}
+          release_name: ${{ github.sha }}
+          body: "Release notes for ${{ github.sha }}"
+          draft: false
+          prerelease: false
+          files: |
             html.js
             html.min.js
