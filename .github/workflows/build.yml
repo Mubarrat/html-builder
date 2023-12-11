@@ -19,9 +19,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: |
-            html.js
-            html.min.js
+          path: ./build
 
   release:
     runs-on: windows-latest
@@ -32,12 +30,14 @@ jobs:
           name: build-artifacts
       - name: Create release
         uses: actions/create-release@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.sha }}
           release_name: ${{ github.sha }}
           body: "Release notes for ${{ github.sha }}"
           draft: false
           prerelease: false
-          files: |
-            html.js
-            html.min.js
+          #files: |
+          #  html.js
+          #  html.min.js

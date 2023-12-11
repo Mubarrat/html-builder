@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2015"
-  }
+    "target": "es2015",
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "outFile": "./build/html.js",
+    "sourceMap": true
+  },
+  "files": [
+    "html.ts"
+  ]
 }

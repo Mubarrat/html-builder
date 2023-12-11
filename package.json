@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm-run-all build:js build:min",
     "build:js": "tsc",
-    "build:min": "terser html.js -o html.min.js"
+    "build:min": "terser ./build/html.js -o ./build/html.min.js"
   },
   "repository": {
     "type": "git",
