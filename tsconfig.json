@@ -3,9 +3,7 @@
     "target": "es2015",
     "outFile": "./build/html.js",
     "sourceMap": true,
-    "sourceRoot": "./"
+    "sourceRoot": "./src/"
   },
-  "files": [
-    "./src/html.ts"
-  ]
+  "include": ["./src/*"]
 }
