@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: './src/html.ts',
-  devtool: 'source-map',
+  devtool: 'cheap-source-map',
   mode: 'production',
   module: {
     rules: [
@@ -14,9 +14,6 @@ module.exports = {
         exclude: /node_modules/,
       }
     ]
-  },
-  resolve: {
-    extensions: [ '.ts', '.js' ]
   },
   output: {
     filename: 'html.js',
