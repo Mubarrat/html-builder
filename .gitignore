@@ -1,3 +1,4 @@
-/html-builder.code-workspace
-/build/
-/package-lock.json
+html-builder.code-workspace
+build
+package-lock.json
+node_modules

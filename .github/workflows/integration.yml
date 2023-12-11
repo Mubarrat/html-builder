@@ -49,6 +49,7 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           filename: release.zip
+          exclusions: '*.git* /*node_modules/* .editorconfig'
       - name: Create release
         id: create-release
         uses: actions/create-release@v1
