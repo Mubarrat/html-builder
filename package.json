@@ -1,11 +1,11 @@
 {
-  "name": "html-builder",
+  "name": "@mubarrathasan/html-builder",
   "version": "1.0.0",
   "description": "This is a library that helps you to build HTML in your JavaScript or TypeScript files.",
-  "private": true,
   "scripts": {
     "build": "webpack && replace-in-file \"var __webpack_exports__ = {};\" \"\" ./build/html.js && terser ./build/html.js -o ./build/html.min.js -c --comments=true"
   },
+  "main": "webpack.config.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mubarrat/html-builder.git"
@@ -26,5 +26,8 @@
     "terser": "^5.26.0",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
+  },
+  "publishConfig": {
+    "@mubarrathasan:registry": "https://npm.pkg.github.com"
   }
 }
