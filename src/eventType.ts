@@ -1,5 +1,5 @@
 /*!
- * Html-Builder JavaScript Library v1.0.0
+ * Html-Builder JavaScript Library v1.0.1
  * https://github.com/Mubarrat/html-builder/
  *
  * Released under the MIT license
