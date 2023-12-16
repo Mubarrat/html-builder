@@ -26,6 +26,7 @@
  * Html class to manage HTML element creation
  */
 class Html {
+
   /**
    * Array to hold HtmlItem elements
    */
@@ -36,11 +37,15 @@ class Html {
    * @param elements The elemenets
    */
   constructor(...elements: HtmlItem[]) {
+
     // Validate elements as an array
     if (!Array.isArray(elements)) {
+      
+      // Since array isn't validated, let's throw an error
       throw new Error("Invalid elements provided");
     }
 
+    // Assign elements
     this.elements = elements;
   }
 
@@ -49,11 +54,14 @@ class Html {
    * @returns Returns a DocumentFragment
    */
   build(): DocumentFragment {
+
     // Create a DocumentFragment
     const fragment = document.createDocumentFragment();
 
     // Append children to the DocumentFragment
     for (const element of this.elements) {
+
+      // Append a child to the DocumentFragment
       fragment.appendChild(element.build());
     }
     

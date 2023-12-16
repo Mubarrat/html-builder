@@ -1,11 +1,3 @@
-/*!
- * Html-Builder JavaScript Library v1.0.0
- * https://github.com/Mubarrat/html-builder/
- *
- * Released under the MIT license
- * https://github.com/Mubarrat/html-builder/blob/main/LICENSE
- */
-
 /**
  * MIT License
  *
@@ -31,6 +23,6 @@
  */
 
 /**
- * Recursive EventType type definition for HTML events
+ * The variable that used for creating html elements.
  */
-type EventType = EventListener | EventType[];
+declare var $html: typeof HtmlItem;
