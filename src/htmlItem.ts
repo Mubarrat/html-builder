@@ -74,19 +74,16 @@ class HtmlItem {
     // If 'tagName' contains some spaces front or end, trim it
     this.tagName = tagName.trim();
 
-    // If 'attribute' is not an instance of HtmlAttributes,
-    if (attributes instanceof HtmlAttributes) {
+    this.attributes =
+
+      // If 'attribute' is an instance of HtmlAttributes,
+      attributes instanceof HtmlAttributes
 
       // just directly assign it
-      this.attributes = attributes;
-    }
-    
-    // Otherwise,
-    else {
+      ? attributes
 
-      // If 'attribute' is a regular object, create an HtmlAttribute instance from it
-      this.attributes = new HtmlAttributes(attributes);
-    }
+      // Otherwise if 'attribute' is a regular object, create an HtmlAttribute instance from it
+      : new HtmlAttributes(attributes);
 
     // Assign children to this
     this.children = children;
@@ -134,25 +131,28 @@ class HtmlItem {
         // An object
         case "object":
 
-          // Check if child is HTMLElement
-          if (child instanceof HtmlItem) {
-
-            // Append HTMLElement child to parent
-            parentElement.appendChild(child.build());
-          }
-
           // Check if child is an array
-          else if (Array.isArray(child)) {
+          if (Array.isArray(child)) {
 
             // Array of children, recursively append
             this.appendChildren(parentElement, ...child);
           }
-          
-          // If anything else, just stringify
+
+          // Otherwise
           else {
 
-            // Convert object to string and append as text node
-            parentElement.appendChild(document.createTextNode(JSON.stringify(child)));
+            // Append child to the parent element
+            parentElement.appendChild(
+
+              // Check if child is HTMLElement
+              child instanceof HtmlItem
+
+              // Append HTMLElement child to parent
+              ? child.build()
+
+              // If anything else, convert object to string and append as text node
+              : document.createTextNode(JSON.stringify(child))
+            );
           }
           break;
 
@@ -184,7 +184,7 @@ class HtmlItem {
         if (prop in target) {
 
           // Return the method for invoking
-          return target[prop];
+          return (target as any)[prop];
         }
         
         // Method is just a HTML predefined name
@@ -194,9 +194,16 @@ class HtmlItem {
           const tagName = prop.replace(/([A-Z])/g, "-$1").toLowerCase();
 
           // Convert method call to custom element name
-          return function(attributes: HtmlAttributes | object, ...children: any[]) {
+          return function(attributes: HtmlAttributes | object | any = {}, ...children: any[]) {
+            
+            // If element initialized without attributes
+            if (!(attributes instanceof HtmlAttributes || typeof attributes === "object")) {
 
-            // Return this class
+              // Return this class without attributes but as children as they no longer attributes
+              return new HtmlItem(tagName, {}, attributes, ...children);
+            }
+            
+            // Otherwise, return this class
             return new HtmlItem(tagName, attributes, ...children);
           };
         }

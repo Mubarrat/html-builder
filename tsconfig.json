@@ -2,9 +2,11 @@
   "compilerOptions": {
     "target": "es6",
     "outFile": "./build/html.js",
-    "sourceMap": true,
     "sourceRoot": "./src/",
-    "removeComments": true
+    "removeComments": true,
+    "inlineSources": true,
+    "sourceMap": true,
+    "strict": true
   },
   "include": ["./src/*"]
 }

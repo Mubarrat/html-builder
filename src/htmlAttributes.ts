@@ -60,7 +60,7 @@ class HtmlAttributes {
     for (const attr of Object.keys(this.attributes)) {
 
       // Get the value from Object
-      const value = this.attributes[attr];
+      const value = (this.attributes as Record<string, any>)[attr];
 
       // Handle class attribute
       if (attr === 'class') {

@@ -1,11 +1,3 @@
-/*!
- * Html-Builder JavaScript Library v1.0.1
- * https://github.com/Mubarrat/html-builder/
- *
- * Released under the MIT license
- * https://github.com/Mubarrat/html-builder/blob/main/LICENSE
- */
-
 /**
  * MIT License
  *
@@ -28,6 +20,14 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ */
+
+/*!
+ * Html-Builder JavaScript Library v1.0.2
+ * https://github.com/Mubarrat/html-builder/
+ * 
+ * Released under the MIT license
+ * https://github.com/Mubarrat/html-builder/blob/main/LICENSE
  */
 
 /**
