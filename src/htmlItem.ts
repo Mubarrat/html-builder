@@ -58,7 +58,7 @@ class HtmlItem {
     }
 
     // Validate attributes as an HtmlAttributes instance or regular object
-    if (!(attributes instanceof HtmlAttributes || typeof attributes === "object")) {
+    if (!(attributes instanceof HtmlAttributes || attributes && Object.getPrototypeOf(attributes) === Object.prototype)) {
 
       // Since attributes aren't validated, let's throw an error.
       throw new Error("Invalid attributes provided");
@@ -197,7 +197,7 @@ class HtmlItem {
           return function(attributes: HtmlAttributes | object | any, ...children: any[]) {
             
             // If element initialized without attributes
-            if (!(attributes instanceof HtmlAttributes || typeof attributes === "object")) {
+            if (!(attributes instanceof HtmlAttributes || attributes && Object.getPrototypeOf(attributes) === Object.prototype)) {
 
               // Return this class without attributes but as children as they no longer attributes
               return new HtmlItem(tagName, {}, attributes, ...children);

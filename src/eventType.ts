@@ -23,7 +23,7 @@
  */
 
 /*!
- * Html-Builder JavaScript Library v1.0.5
+ * Html-Builder JavaScript Library v1.1.0
  * https://github.com/Mubarrat/html-builder/
  * 
  * Released under the MIT license
