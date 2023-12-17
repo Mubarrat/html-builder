@@ -261,8 +261,9 @@ document.body.appendChild(divElement);
   ```javascript
   const paragraph = $html.p({}, 'This is a paragraph.');
   ```
-  > [!WARNING]
-  > This only works in factory functions (shortcut methods). It doesn't work at `HtmlItem` constructor.
+
+> [!NOTE]
+> `Without attribute` feature only works in factory functions (shortcut methods). It doesn't work at `HtmlItem` constructor.
   
 ##### Usage:
 
