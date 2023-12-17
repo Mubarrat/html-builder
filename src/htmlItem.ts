@@ -194,7 +194,7 @@ class HtmlItem {
           const tagName = prop.replace(/([A-Z])/g, "-$1").toLowerCase();
 
           // Convert method call to custom element name
-          return function(attributes: HtmlAttributes | object | any = {}, ...children: any[]) {
+          return function(attributes: HtmlAttributes | object | any, ...children: any[]) {
             
             // If element initialized without attributes
             if (!(attributes instanceof HtmlAttributes || typeof attributes === "object")) {
