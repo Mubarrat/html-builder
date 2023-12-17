@@ -26,8 +26,6 @@ For the minimized version, the link is
 https://cdn.jsdelivr.net/gh/Mubarrat/html-builder@main/dist/html.min.js
 ```
 
-Certainly, you can direct users to explore the comprehensive guides available in your repository's wiki by providing a brief and inviting snippet in your README.md. Here's an example:
-
 ## Guides
 
 For in-depth tutorials, detailed documentation, and step-by-step instructions, check out our [Wiki](wiki)!
