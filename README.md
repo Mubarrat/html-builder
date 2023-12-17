@@ -263,7 +263,7 @@ document.body.appendChild(divElement);
   ```
 
 > [!NOTE]
-> `Without attribute` feature only works in factory functions (shortcut methods). It doesn't work at `HtmlItem` constructor.
+> `Without attribute` feature only works in factory functions (shortcut methods). It doesn't work in `HtmlItem` constructor.
   
 ##### Usage:
 
