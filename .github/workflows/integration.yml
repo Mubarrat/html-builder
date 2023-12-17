@@ -21,7 +21,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: ./build
+          path: ./dist
 
   release-project:
     runs-on: ubuntu-latest
