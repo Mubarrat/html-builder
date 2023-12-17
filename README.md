@@ -2,14 +2,18 @@
 This is a library that helps you to build HTML in your JavaScript or TypeScript files.
 
 ## Purpose
-The Html-Builder JavaScript Library facilitates the dynamic creation of HTML elements in JavaScript, offering a flexible and intuitive interface for generating HTML content.
+The HTML Builder JavaScript Library facilitates the dynamic creation of HTML elements in JavaScript, offering a flexible and intuitive interface for generating HTML content.
 
 ## Installation
-Download our latest [release files](https://github.com/Mubarrat/html-builder/releases) from this GitHub repository. Or, Just link to this url
+### Download
+Download our latest [release files](https://github.com/Mubarrat/html-builder/releases) from this GitHub repository.
+
+---
+### Link
 ```
 https://cdn.jsdelivr.net/gh/Mubarrat/html-builder/dist/html.js
 ```
-For minimized version, use
+For the minimized version, the link is
 ```
 https://cdn.jsdelivr.net/gh/Mubarrat/html-builder/dist/html.min.js
 ```
@@ -18,7 +22,7 @@ https://cdn.jsdelivr.net/gh/Mubarrat/html-builder/dist/html.min.js
 Let's assume you have a simple HTML structure you want to create programmatically using the HTML builder library.
 ### Example:
 
-#### 1st Example:
+#### 1st Example
 This example demonstrates how to use the HTML builder library to create HTML elements (in this case, a `<div>` with `<h1>` and `<p>` children) and add them to the web page.
 ```javascript
 // Creating a div with some attributes and children
@@ -38,11 +42,12 @@ document.body.appendChild(myDivElement);
    * `$html.h1("Hello, World!")` creates an `<h1>` element as a child of the `<div>`.
    * `$html.p("This is a paragraph inside the div.")` creates a `<p>` element as another child of the `<div>`.
 3. Building the HTML Elements:
-   * `.build()` method id called to construct the entire structure.
+   * `.build()` method is called to construct the entire structure.
 4. Appending to the Document:
    * `document.body.appendChild(myDivElement)` appends the constructed HTML structure to the body of the HTML document.
 
-#### Example 2:
+---
+#### 2nd Example
 This example showcases how the HTML builder library can create a set of specified HTML elements and append it to the webpage. This method can be beneficial for efficiency when adding multiple elements to the DOM at once, as it allows you to make a single append operation rather than appending each element individually.
 
 ```javascript
@@ -60,11 +65,12 @@ document.body.appendChild(elementSet);
 1. Creating a set of elements:
    * `const elementSet = new Html(...)` constructs a set of elements containing `<h1>` and a `<p>` element using the HTML builder library.
 2. Building the HTML Elements:
-   * `.build()` method id called to construct set of structure.
+   * `.build()` method is called to construct the set of elements.
 3. Appending to the Document:
    * `document.body.appendChild(elementSet)` adds the constructed document fragment (containing the elements) to the body of the HTML document.
 
-#### Example 3:
+---
+#### 3rd Example
 
 This example demonstrates how you can use the HTML builder library to create a `<div>` element with specific styles, an event listener, and custom data attributes. Adjust the attributes and their values according to your requirements.
 
@@ -144,6 +150,7 @@ document.body.appendChild(divElement);
 - `on`: Attaches an event listener (in this case, a click event) to the `<div>` element.
 - `data`: Sets custom data attributes (`id` and `user`) to the `<div>` element.
 
+---
 ## API Documentation
 
 ### `Html` Class:
@@ -167,6 +174,7 @@ document.body.appendChild(divElement);
      const fragment = htmlCollection.build();
      ```
 
+---
 ### `HtmlAttributes` Class:
 
 - **Purpose**: Manages HTML element attributes.
@@ -190,6 +198,7 @@ document.body.appendChild(divElement);
      const modifiedElement = attributes.build(myElement);
      ```
 
+---
 ### `HtmlItem` Class:
 
 - **Purpose**: Represents an HTML element.
@@ -205,13 +214,7 @@ document.body.appendChild(divElement);
      ```javascript
      const element = new HtmlItem('div', { class: 'container' }, 'Content');
      ```
-   - **Shortcut**:
-     - Use $html.tagName(...) instead of new HtmlItem(tagName, ...)
-     - Any capital letters in tagName will transform to small letters and prepend hyphen. Examples
-       - `$html.codeWindow(...)` &rarr; `<code-window>`
-       - `$html.codeBlock(...)` &rarr; `<code-block>`
-       - `$html.codeBlockWindow(...)` &rarr; `<code-block-window>`
-     - See more
+   - **Shortcut**: [See more](#factory-functions-shortcut-methods)
   
 2. **`build()` Method**
    - **Returns**: HTMLElement - The constructed HTML element.
@@ -220,11 +223,26 @@ document.body.appendChild(divElement);
      const divElement = element.build();
      ```
 
+---
 ### Factory Functions (Shortcut Methods):
 
 #### `$html.tagName(...)`
 
 - **Purpose**: Shortcut method for creating specific HTML elements.
+- Use `$html.tagName(...)` instead of `new HtmlItem(tagName, ...)`
+- Any capital letters in `tagName` will transform to small letters and prepend hyphen. Examples:-
+  - `$html.codeWindow(...)` &rarr; `<code-window>`
+  - `$html.codeBlock(...)` &rarr; `<code-block>`
+  - `$html.codeBlockWindow(...)` &rarr; `<code-block-window>`
+- If you don't need any attributes, then use
+  ```javascript
+  const paragraph = $html.p('This is a paragraph.');
+  ```
+  instead of
+  ```javascript
+  const paragraph = $html.p({}, 'This is a paragraph.');
+  ```
+  > **Note:** This is only works in factory functions (shortcut methods).
   
 ##### Usage:
 
@@ -232,7 +250,7 @@ document.body.appendChild(divElement);
 const paragraph = $html.p({}, 'This is a paragraph.');
 const heading = $html.h1({}, 'This is a heading.');
 ```
-Or without `{}`, if no attributes. But it's only work in factory functions, not in `HtmlItem`'s constructor.
+Or, without `{}`
 ```javascript
 const paragraph = $html.p('This is a paragraph.');
 const heading = $html.h1('This is a heading.');
@@ -251,7 +269,7 @@ document.body.appendChild(heading.build());
 ```
 
 ## Questions
-If you have any questions, feel free to ask in `Issues` tab. We'll answer your questions. If you found any bug, please report it.
+If you have any questions, feel free to ask in the `Issues` tab. We'll answer your questions. If you find any bug, please report it.
 
 ## Contributing
 
