@@ -261,7 +261,8 @@ document.body.appendChild(divElement);
   ```javascript
   const paragraph = $html.p({}, 'This is a paragraph.');
   ```
-  > **Note:** This is only works in factory functions (shortcut methods). It doesn't work at `HtmlItem` constructor.
+  > [!WARNING]
+  > This only works in factory functions (shortcut methods). It doesn't work at `HtmlItem` constructor.
   
 ##### Usage:
 
