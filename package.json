@@ -1,9 +1,9 @@
 {
   "name": "@mubarrathasan/html-builder",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "This is a library that helps you to build HTML in your JavaScript or TypeScript files.",
   "scripts": {
-    "build": "tsc && terser ./dist/html.js -o ./dist/html.min.js"
+    "build": "tsc && terser ./dist/html.js --comments all -o ./dist/html.min.js"
   },
   "repository": {
     "type": "git",
