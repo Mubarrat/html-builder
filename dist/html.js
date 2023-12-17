@@ -78,7 +78,7 @@ class HtmlItem {
         if (!tagName || typeof tagName !== "string") {
             throw new Error("Invalid tagName provided");
         }
-        if (!(attributes instanceof HtmlAttributes || attributes && Object.getPrototypeOf(attributes) === Object.prototype)) {
+        if (!(attributes instanceof HtmlAttributes || (attributes && Object.getPrototypeOf(attributes) === Object.prototype))) {
             throw new Error("Invalid attributes provided");
         }
         if (!Array.isArray(children)) {
@@ -129,7 +129,7 @@ class HtmlItem {
                 else {
                     const tagName = prop.replace(/([A-Z])/g, "-$1").toLowerCase();
                     return function (attributes, ...children) {
-                        if (!(attributes instanceof HtmlAttributes || attributes && Object.getPrototypeOf(attributes) === Object.prototype)) {
+                        if (!(attributes instanceof HtmlAttributes || (attributes && Object.getPrototypeOf(attributes) === Object.prototype))) {
                             return new HtmlItem(tagName, {}, attributes, ...children);
                         }
                         return new HtmlItem(tagName, attributes, ...children);
