@@ -268,16 +268,13 @@ document.body.appendChild(paragraph.build());
 document.body.appendChild(heading.build());
 ```
 
-## Questions
-If you have any questions, feel free to ask in the `Issues` tab. We'll answer your questions. If you find any bug, please report it.
-
 ## Contributing
 
 We welcome contributions from the community to enhance the HTML Builder library. Whether you're fixing a bug, implementing new features, or improving documentation, your efforts are appreciated. To contribute, follow these guidelines:
 
 ### Bug Reports and Feature Requests
 
-If you encounter a bug or have a feature request, please check our [issue tracker](link-to-issues) to see if it's already reported. If not, feel free to open a new issue. When reporting a bug, include:
+If you encounter a bug or have a feature request, please check our [issue tracker](https://github.com/Mubarrat/html-builder/issues) to see if it's already reported. If not, feel free to open a new issue. When reporting a bug, include:
 
 - A clear and descriptive title
 - Steps to reproduce the bug
