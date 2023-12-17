@@ -8,7 +8,15 @@ The HTML Builder JavaScript Library facilitates the dynamic creation of HTML ele
 ### Download
 Download our latest [release files](https://github.com/Mubarrat/html-builder/releases) from this GitHub repository.
 
----
+#### Contents
+Once downloaded, unzip the compressed folder and you’ll see something like this:
+```
+html-builder
+├── html.js
+├── html.js.map
+└── html.min.js
+```
+
 ### Link
 ```
 https://cdn.jsdelivr.net/gh/Mubarrat/html-builder/dist/html.js
@@ -97,31 +105,33 @@ const styledDiv = $html.div(
       click: () => {
         alert('Clicked!');
       }
-      You can also use array of functions or
-      nested array and functions. It doesn't
-      matter. It recursively append. Like
+      You can also use array of functions or nested
+      array and functions. It doesn't matter. It
+      recursively appended when run. Like:-
       click: [
-        () { alert('Clicked 1!') },
+        () => { alert('Clicked 1!') },
+        () => { alert('Clicked 2!') },
         [
-          () { alert('Clicked 2!') },
+          () => { alert('Clicked 3!') },
           [
-            () { alert('Clicked 3!') },
+            () => { alert('Clicked 4!') },
             ...
           ]
         ]
       ]
-      Will be behaved as:
-      click: [
-        () { alert('Clicked 1!') },
-        () { alert('Clicked 2!') },
-        () { alert('Clicked 3!') },
+      It will be run as:-
+      click() {
+        (() => { alert('Clicked 1!') })();
+        (() => { alert('Clicked 2!') })();
+        (() => { alert('Clicked 3!') })();
+        (() => { alert('Clicked 4!') })();
         ...
-      ]
+      }
       */
     },
     /*
-    If you like, you can individually
-    add outside of on. Like:
+    You can also individually add outside of on.
+    Example:
     onclick() { ... },
     onmouseover() { ... }
     */
@@ -129,9 +139,18 @@ const styledDiv = $html.div(
       id: 123,
       user: {
         name: 'John Doe',
-        email: 'john@example.com',
+        email: 'john@example.com'
       }
     }
+    /*
+    You can also individually add data.
+    Example:
+    "data-id": 123,
+    "data-user": {
+      name: 'John Doe',
+      email: 'john@example.com'
+    }
+    */
   },
   'Styled Div - Click me!'
 );
@@ -242,7 +261,7 @@ document.body.appendChild(divElement);
   ```javascript
   const paragraph = $html.p({}, 'This is a paragraph.');
   ```
-  > **Note:** This is only works in factory functions (shortcut methods).
+  > **Note:** This is only works in factory functions (shortcut methods). It doesn't work at `HtmlItem` constructor.
   
 ##### Usage:
 
@@ -304,7 +323,7 @@ We encourage pull requests to fix bugs, improve documentation, or add new featur
 
 ### Code of Conduct
 
-Please adhere to our [Code of Conduct](https://github.com/Mubarrat/html-builder/blob/main/CODE_OF_CONDUCT.md) in all interactions related to the project.
+Please adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) in all interactions related to the project.
 
 ### Getting Help
 
