@@ -28,7 +28,7 @@ https://cdn.jsdelivr.net/gh/Mubarrat/html-builder@main/dist/html.min.js
 
 ## Guides
 
-For in-depth tutorials, detailed documentation, and step-by-step instructions, check out our [Wiki](wiki)!
+For in-depth tutorials, detailed documentation, and step-by-step instructions, check out our [Wiki](https://github.com/Mubarrat/html-builder/wiki)!
 
 Our wiki contains a wealth of resources, including:
 
@@ -36,7 +36,7 @@ Our wiki contains a wealth of resources, including:
 - **API Documentation**: Detailed explanations and usage examples.
 - **Troubleshooting**: Solutions to common issues and FAQs.
 
-Explore our [Wiki](wiki) to discover more! I hope you'll enjoy this HTML Builder while you coding.
+Explore our [Wiki](https://github.com/Mubarrat/html-builder/wiki) to discover more! I hope you'll enjoy this HTML Builder while you coding.
 
 ## Contributing
 
