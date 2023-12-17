@@ -1,6 +1,6 @@
 {
   "name": "@mubarrathasan/html-builder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This is a library that helps you to build HTML in your JavaScript or TypeScript files.",
   "scripts": {
     "build": "npm run build:js && npm run build:min",

@@ -212,7 +212,13 @@ class HtmlItem {
   }
 }
 
-/**
- * Create an instance of the html class with a proxy for element creation.
- */
-$html = HtmlItem.createProxy();
+// A function that create global variable to define HtmlItem
+(function(globals){
+
+  // Use strict for 
+  "use strict";
+
+  // Create an instance of the html class with a proxy for element creation.
+  globals.$html = HtmlItem.createProxy();
+  
+}(this));
