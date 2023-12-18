@@ -19,11 +19,11 @@ html-builder
 
 ### Link
 ```
-https://cdn.jsdelivr.net/gh/Mubarrat/html-builder@main/dist/html.js
+https://cdn.jsdelivr.net/gh/Mubarrat/html-builder@1.x/dist/html.js
 ```
 For the minimized version, the link is
 ```
-https://cdn.jsdelivr.net/gh/Mubarrat/html-builder@main/dist/html.min.js
+https://cdn.jsdelivr.net/gh/Mubarrat/html-builder@1.x/dist/html.min.js
 ```
 
 ## Guides
