@@ -7,7 +7,7 @@ The HTML Builder Library is designed to assist in constructing HTML within your 
 This JavaScript library enables the dynamic creation of HTML elements within your codebase. It offers a flexible and intuitive interface for generating HTML content programmatically.
 
 > [!NOTE]
-> While the library supports TypeScript during development, the released version includes JavaScript files and a map file, ensuring ease of use without additional dependencies or frameworks.
+> While the library supports TypeScript during development, the released version only includes JavaScript files and a map file, ensuring ease of use without additional dependencies or frameworks.
 
 ## Installation
 ### Download
