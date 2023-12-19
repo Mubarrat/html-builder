@@ -28,15 +28,10 @@
 class HtmlAttributes {
   
   /**
-   * Object to hold HTML attributes
-   */
-  attributes: object;
-
-  /**
    * To initialize attributes for HTML element.
    * @param attributes An set of attributes.
    */
-  constructor(attributes: object = {}) {
+  constructor(public attributes: object = {}) {
 
     // Validate attributes as an object
     if (typeof attributes !== "object") {
@@ -44,9 +39,26 @@ class HtmlAttributes {
       // Since attributes aren't validated, let's throw an error.
       throw new Error("Invalid attributes provided");
     }
+  }
 
-    // Assign attributes
-    this.attributes = attributes;
+  /**
+   * Get the attribute value by providing it's name.
+   * @param attributeName The name of attribute.
+   */
+  get(attributeName: string) {
+
+    // Return a attributes value
+    return (this.attributes as Record<string, any>)[attributeName];
+  }
+
+  /**
+   * Set the attribute value for name.
+   * @param attributeName The name of attribute.
+   */
+  set(attributeName: string, attributeValue: any) {
+
+    // Set a attributes value
+    (this.attributes as Record<string, any>)[attributeName] = attributeValue;
   }
 
   /**
@@ -60,7 +72,7 @@ class HtmlAttributes {
     for (const attr of Object.keys(this.attributes)) {
 
       // Get the value from Object
-      const value = (this.attributes as Record<string, any>)[attr];
+      const value = this.get(attr);
 
       // Handle class attribute
       if (attr === 'class') {
@@ -83,7 +95,7 @@ class HtmlAttributes {
         for (const eventName in value) {
 
           // Recursively add events
-          this.addEvents(element, eventName, false, value[eventName]);
+          this.addEvents(element, eventName, value[eventName]);
         }
       }
 
@@ -91,7 +103,7 @@ class HtmlAttributes {
       else if (attr.startsWith('on')) {
 
         // Recursively add events
-        this.addEvents(element, attr.toLowerCase().substring(2), false, value);
+        this.addEvents(element, attr.toLowerCase().substring(2), value);
       }
 
       // Assuming 'data' is an object containing data information
@@ -145,7 +157,7 @@ class HtmlAttributes {
    * @param useCapture If you want to use bubbling, then set true. The default is false.
    * @param events The array of functions or functions.
    */
-  addEvents(element: HTMLElement, eventName: string, useCapture: boolean = false, ...events: EventType[]): HtmlAttributes {
+  addEvents(element: HTMLElement, eventName: string, ...events: EventType[]): HtmlAttributes {
     
     // Iterate event over events
     for (const event of events) {
@@ -154,14 +166,21 @@ class HtmlAttributes {
       if (typeof event === 'function') {
 
         // Add event listener to the element based on the useCapture parameter
-        element.addEventListener(eventName, event, useCapture);
+        element.addEventListener(eventName, event);
+      }
+
+      // Check if the event is a function with a option
+      else if (isEventWithBubbleType(event)) {
+
+        // Add event listener to the element based on the useCapture parameter
+        element.addEventListener(eventName, event[0], event[1]);
       }
 
       // Check if the event is an array
       else if (Array.isArray(event)) {
 
         // Recursively add events
-        this.addEvents(element, eventName, useCapture, ...event);
+        this.addEvents(element, eventName, ...event);
       }
     }
 

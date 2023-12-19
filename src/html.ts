@@ -30,18 +30,18 @@ class Html {
   /**
    * Array to hold HtmlItem elements
    */
-  elements: HtmlItem[];
+  elements: ChildrenType[];
 
   /**
    * Constructor to initialize HtmlItem elements
    * @param elements The elemenets
    */
-  constructor(...elements: HtmlItem[]) {
+  constructor(...elements: ChildrenType[]) {
 
-    // Validate elements as an array
-    if (!Array.isArray(elements)) {
+    // Validate elements
+    if (!isChildrenType(elements)) {
       
-      // Since array isn't validated, let's throw an error
+      // let's throw an error
       throw new Error("Invalid elements provided");
     }
 
@@ -58,12 +58,8 @@ class Html {
     // Create a DocumentFragment
     const fragment = document.createDocumentFragment();
 
-    // Append children to the DocumentFragment
-    for (const element of this.elements) {
-
-      // Append a child to the DocumentFragment
-      fragment.appendChild(element.build());
-    }
+    // Recursively append children to the DocumentFragment
+    appendChildren(fragment, ...this.elements);
     
     // Return the DocumentFragment
     return fragment;

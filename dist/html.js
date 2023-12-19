@@ -1,36 +1,65 @@
-"use strict";
 /*!
- * Html-Builder JavaScript Library v1.1.0
+ * Html-Builder JavaScript Library v2.0.0
  * https://github.com/Mubarrat/html-builder/
- *
+ * 
  * Released under the MIT license
  * https://github.com/Mubarrat/html-builder/blob/main/LICENSE
  */
+"use strict";
+function appendChildren(parent, ...children) {
+    if (!isChildrenType(children)) {
+        throw new Error("Invalid children provided");
+    }
+    for (const child of children) {
+        switch (typeof child) {
+            case "string":
+            case "number":
+            case "boolean":
+                parent.appendChild(document.createTextNode(child.toString()));
+                break;
+            case "object":
+                if (Array.isArray(child)) {
+                    appendChildren(parent, ...child);
+                }
+                else {
+                    parent.appendChild(child.build());
+                }
+                break;
+            default:
+                parent.appendChild(document.createTextNode(String(child)));
+                break;
+        }
+    }
+}
 class Html {
     constructor(...elements) {
-        if (!Array.isArray(elements)) {
+        if (!isChildrenType(elements)) {
             throw new Error("Invalid elements provided");
         }
         this.elements = elements;
     }
     build() {
         const fragment = document.createDocumentFragment();
-        for (const element of this.elements) {
-            fragment.appendChild(element.build());
-        }
+        appendChildren(fragment, ...this.elements);
         return fragment;
     }
 }
 class HtmlAttributes {
     constructor(attributes = {}) {
+        this.attributes = attributes;
         if (typeof attributes !== "object") {
             throw new Error("Invalid attributes provided");
         }
-        this.attributes = attributes;
+    }
+    get(attributeName) {
+        return this.attributes[attributeName];
+    }
+    set(attributeName, attributeValue) {
+        this.attributes[attributeName] = attributeValue;
     }
     build(element) {
         for (const attr of Object.keys(this.attributes)) {
-            const value = this.attributes[attr];
+            const value = this.get(attr);
             if (attr === 'class') {
                 element.classList.add(...value.split(' '));
             }
@@ -39,11 +68,11 @@ class HtmlAttributes {
             }
             else if (attr === 'on' && typeof value === 'object') {
                 for (const eventName in value) {
-                    this.addEvents(element, eventName, false, value[eventName]);
+                    this.addEvents(element, eventName, value[eventName]);
                 }
             }
             else if (attr.startsWith('on')) {
-                this.addEvents(element, attr.toLowerCase().substring(2), false, value);
+                this.addEvents(element, attr.toLowerCase().substring(2), value);
             }
             else if (attr === 'data' && typeof value === 'object') {
                 for (const name in value) {
@@ -61,13 +90,16 @@ class HtmlAttributes {
         }
         return element;
     }
-    addEvents(element, eventName, useCapture = false, ...events) {
+    addEvents(element, eventName, ...events) {
         for (const event of events) {
             if (typeof event === 'function') {
-                element.addEventListener(eventName, event, useCapture);
+                element.addEventListener(eventName, event);
+            }
+            else if (isEventWithBubbleType(event)) {
+                element.addEventListener(eventName, event[0], event[1]);
             }
             else if (Array.isArray(event)) {
-                this.addEvents(element, eventName, useCapture, ...event);
+                this.addEvents(element, eventName, ...event);
             }
         }
         return this;
@@ -75,16 +107,17 @@ class HtmlAttributes {
 }
 class HtmlItem {
     constructor(tagName, attributes = {}, ...children) {
+        this.tagName = tagName;
         if (!tagName || typeof tagName !== "string") {
             throw new Error("Invalid tagName provided");
         }
         if (!(attributes instanceof HtmlAttributes || (attributes && Object.getPrototypeOf(attributes) === Object.prototype))) {
             throw new Error("Invalid attributes provided");
         }
-        if (!Array.isArray(children)) {
+        if (!isChildrenType(children)) {
             throw new Error("Invalid children provided");
         }
-        this.tagName = tagName.trim();
+        tagName = tagName.trim();
         this.attributes =
             attributes instanceof HtmlAttributes
                 ? attributes
@@ -94,53 +127,53 @@ class HtmlItem {
     build() {
         const element = document.createElement(this.tagName);
         this.attributes.build(element);
-        this.appendChildren(element, this.children);
+        appendChildren(element, ...this.children);
         return element;
-    }
-    appendChildren(parentElement, ...children) {
-        for (const child of children) {
-            switch (typeof child) {
-                case "string":
-                    parentElement.appendChild(document.createTextNode(child));
-                    break;
-                case "object":
-                    if (Array.isArray(child)) {
-                        this.appendChildren(parentElement, ...child);
-                    }
-                    else {
-                        parentElement.appendChild(child instanceof HtmlItem
-                            ? child.build()
-                            : document.createTextNode(JSON.stringify(child)));
-                    }
-                    break;
-                default:
-                    parentElement.appendChild(document.createTextNode(String(child)));
-                    break;
-            }
-        }
-        return this;
-    }
-    static createProxy() {
-        return new Proxy(this, {
-            get: function (target, prop) {
-                if (prop in target) {
-                    return target[prop];
-                }
-                else {
-                    const tagName = prop.replace(/([A-Z])/g, "-$1").toLowerCase();
-                    return function (attributes, ...children) {
-                        if (!(attributes instanceof HtmlAttributes || (attributes && Object.getPrototypeOf(attributes) === Object.prototype))) {
-                            return new HtmlItem(tagName, {}, attributes, ...children);
-                        }
-                        return new HtmlItem(tagName, attributes, ...children);
-                    };
-                }
-            },
-        });
     }
 }
 (function (globals) {
     "use strict";
-    globals.$html = HtmlItem.createProxy();
-}(this));
+    globals.$html = new Proxy(Html, {
+        get(target, prop) {
+            if (prop in target) {
+                return target[prop];
+            }
+            else {
+                const tagName = prop.replace(/([A-Z])/g, "-$1").toLowerCase();
+                return function (attributes, ...children) {
+                    if (!(attributes instanceof HtmlAttributes || (attributes && Object.getPrototypeOf(attributes) === Object.prototype))) {
+                        return new HtmlItem(tagName, {}, attributes, ...children);
+                    }
+                    return new HtmlItem(tagName, attributes, ...children);
+                };
+            }
+        },
+        apply(_target, _thisArg, argArray) {
+            return new Html(...argArray);
+        },
+    });
+}((eval)("this")));
+function isChildrenType(obj) {
+    return (Array.isArray(obj)
+        ? obj.every(isChildrenType)
+        : obj instanceof HtmlItem ||
+            obj instanceof String ||
+            obj instanceof Number ||
+            obj instanceof Boolean);
+}
+function isEventWithBubbleType(obj) {
+    return (Array.isArray(obj) &&
+        obj.length === 2 &&
+        obj[0] instanceof Function &&
+        (obj[1] instanceof Boolean || isAddEventListenerOptions(obj[1])));
+}
+function isAddEventListenerOptions(arg) {
+    return arg && typeof arg === 'object' && 'capture' in arg;
+}
+function isEventType(obj) {
+    return (Array.isArray(obj)
+        ? obj.every(isEventType)
+        : obj instanceof Function
+            || isEventWithBubbleType(obj));
+}
 //# sourceMappingURL=html.js.map
