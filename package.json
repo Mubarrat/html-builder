@@ -1,5 +1,5 @@
 {
-  "name": "@mubarrathasan/html-builder",
+  "name": "@mubarrat/html-builder",
   "version": "2.0.0",
   "description": "This is a library that helps you to build HTML in your JavaScript or TypeScript files.",
   "scripts": {
@@ -22,6 +22,6 @@
     "terser": "^5.26.0"
   },
   "publishConfig": {
-    "@mubarrathasan:registry": "https://registry.npmjs.org/"
+    "@mubarrat:registry": "https://npm.pkg.github.com/"
   }
 }
