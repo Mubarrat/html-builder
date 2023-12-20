@@ -1,6 +1,6 @@
 {
   "name": "@mubarrat/html-builder",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "This is a library that helps you to build HTML in your JavaScript or TypeScript files.",
   "scripts": {
     "build": "tsc && node prependComment.js && terser ./dist/html.js --comments all -o ./dist/html.min.js"
@@ -16,9 +16,7 @@
   },
   "homepage": "https://github.com/Mubarrat/html-builder#readme",
   "devDependencies": {
-    "typescript": "^5.3.3"
-  },
-  "dependencies": {
+    "typescript": "^5.3.3",
     "terser": "^5.26.0"
   },
   "publishConfig": {

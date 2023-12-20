@@ -28,47 +28,60 @@
   // Use strict for this function
   "use strict";
 
-  // Create an instance of the html class with a proxy for element creation.
-  globals.$html = new Proxy(Html, {
+  // Define a global property
+  Object.defineProperty(globals, '$html', {
 
-    // Assign a get function
-    get(target, prop: string) {
+    // Create an instance of the html class with a proxy for element creation and set to value.
+    value: new Proxy(Html, {
 
-      // If the method name is in this class
-      if (prop in target) {
-
-        // Return the method for invoking
-        return (target as any)[prop];
-      }
-      
-      // Method is just a HTML predefined name
-      else {
+      // Assign a get function
+      get(target, prop: string) {
+  
+        // If the method name is in this class
+        if (prop in target) {
+  
+          // Return the method for invoking
+          return (target as any)[prop];
+        }
         
-        // Fix the method name
-        const tagName = prop.replace(/([A-Z])/g, "-$1").toLowerCase();
-
-        // Convert method call to custom element name
-        return function(attributes: HtmlAttributes | object | any, ...children: any[]) {
+        // Method is just a HTML predefined name
+        else {
           
-          // If element initialized without attributes
-          if (!(attributes instanceof HtmlAttributes || (attributes && Object.getPrototypeOf(attributes) === Object.prototype))) {
+          // Fix the method name
+          const tagName = prop.replace(/([A-Z])/g, "-$1").toLowerCase();
+  
+          // Convert method call to custom element name
+          return function(attributes: HtmlAttributes | object | any, ...children: any[]) {
+            
+            // If element initialized without attributes
+            if (!(attributes instanceof HtmlAttributes || (attributes && Object.getPrototypeOf(attributes) === Object.prototype))) {
+  
+              // Return this class without attributes but as children as they no longer attributes
+              return new HtmlItem(tagName, {}, attributes, ...children);
+            }
+            
+            // Otherwise, return this class
+            return new HtmlItem(tagName, attributes, ...children);
+          };
+        }
+      },
+  
+      // Assign a apply function
+      apply(_target, _thisArg, argArray) {
+  
+        // Return a class that makes Document Fragment
+        return new Html(...argArray);
+      },
+    }),
 
-            // Return this class without attributes but as children as they no longer attributes
-            return new HtmlItem(tagName, {}, attributes, ...children);
-          }
-          
-          // Otherwise, return this class
-          return new HtmlItem(tagName, attributes, ...children);
-        };
-      }
-    },
+    // The value cannot be changed
+    writable: false,
 
-    // Assign a apply function
-    apply(_target, _thisArg, argArray) {
+    // The property cannot be deleted
+    configurable: false,
 
-      // Return a class that makes Document Fragment
-      return new Html(...argArray);
-    },
+    // The property will be visible in enumerations
+    enumerable: true
   });
   
 }((eval)("this")));

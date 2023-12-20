@@ -1,5 +1,5 @@
 /*!
- * Html-Builder JavaScript Library v2.0.0
+ * Html-Builder JavaScript Library v2.0.1
  * https://github.com/Mubarrat/html-builder/
  * 
  * Released under the MIT license
@@ -133,24 +133,29 @@ class HtmlItem {
 }
 (function (globals) {
     "use strict";
-    globals.$html = new Proxy(Html, {
-        get(target, prop) {
-            if (prop in target) {
-                return target[prop];
-            }
-            else {
-                const tagName = prop.replace(/([A-Z])/g, "-$1").toLowerCase();
-                return function (attributes, ...children) {
-                    if (!(attributes instanceof HtmlAttributes || (attributes && Object.getPrototypeOf(attributes) === Object.prototype))) {
-                        return new HtmlItem(tagName, {}, attributes, ...children);
-                    }
-                    return new HtmlItem(tagName, attributes, ...children);
-                };
-            }
-        },
-        apply(_target, _thisArg, argArray) {
-            return new Html(...argArray);
-        },
+    Object.defineProperty(globals, '$html', {
+        value: new Proxy(Html, {
+            get(target, prop) {
+                if (prop in target) {
+                    return target[prop];
+                }
+                else {
+                    const tagName = prop.replace(/([A-Z])/g, "-$1").toLowerCase();
+                    return function (attributes, ...children) {
+                        if (!(attributes instanceof HtmlAttributes || (attributes && Object.getPrototypeOf(attributes) === Object.prototype))) {
+                            return new HtmlItem(tagName, {}, attributes, ...children);
+                        }
+                        return new HtmlItem(tagName, attributes, ...children);
+                    };
+                }
+            },
+            apply(_target, _thisArg, argArray) {
+                return new Html(...argArray);
+            },
+        }),
+        writable: false,
+        configurable: false,
+        enumerable: true
     });
 }((eval)("this")));
 function isChildrenType(obj) {
